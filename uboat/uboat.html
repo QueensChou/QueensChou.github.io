@@ -1,0 +1,43 @@
+<html lang="en-US">
+	<head>
+		<title>潜水艇统计</title>
+		<meta charset="utf-8"/>
+		<style>
+			* {
+				margin: 0;
+        padding: 0;
+				}
+			html {
+			  height: 100%;
+			  overflow: hidden;
+			  background-color: transparent;
+			}
+		</style>
+		<script src="dayjs.min.js"></script>
+    <script src="customParseFormat.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
+		<script defer="defer" src="uboat.bundle.js"></script>
+		<link href="uboat.css" rel="stylesheet">
+	</head>
+	<body>
+    <section class="index">
+      <header class="index_top">
+        <h1 class="index_top_title">潜水艇收入</h1>
+        <div class="date_select">
+          <a href="javascript:;" class="date_select_left">&blacktriangleleft;</a>
+          <p class="date_select_word">今天</p>
+          <a href="javascript:;" class="date_select_right">&blacktriangleright;</a>
+        </div>
+      </header>
+      <ul class="index_middle">
+        
+      </ul>
+      <p class="log" style="color: #fff;"></p>
+      <a class="clear_log" style="color: #fff; text-align: center; text-decoration: none;" href="javascript:;">清空历史记录</a>
+      <footer class="index_bottom">
+        <h2 class="index_bottom_title">总计</h2>
+        <p class="index_bottom_number">0</p>
+      </footer>
+    </section>
+	</body>
+</html>
