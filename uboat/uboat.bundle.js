@@ -212,26 +212,42 @@ const init = () => {
 
 // 物品价格
 const goodsPrice = {
-  SalvagedRing: 8000,
-  SalvagedBracelet: 9000,
-  SalvagedEarring: 10000,
-  SalvagedNecklace: 13000,
-  ExtravagantSalvagedRing: 27000,
-  ExtravagantSalvagedBracelet: 28500,
-  ExtravagantSalvagedEarring: 30000,
-  ExtravagantSalvagedNecklace: 34500,
+  "沉船戒指": 8000,
+  "沉船手镯": 9000,
+  "沉船耳饰": 10000,
+  "沉船项链": 13000,
+  "上等沉船戒指": 27000,
+  "上等沉船手镯": 28500,
+  "上等沉船耳饰": 30000,
+  "上等沉船项链": 34500,
+  "亚拉戈银币": 100,
+  "火之水晶": 25,
+  "萨维奈彩椒": 300,
 }
 // 物品名称
-const goodsName = {
-  SalvagedRing: "沉船戒指",
-  SalvagedBracelet: "沉船手镯",
-  SalvagedEarring: "沉船耳饰",
-  SalvagedNecklace: "沉船项链",
-  ExtravagantSalvagedRing: "上等沉船戒指",
-  ExtravagantSalvagedBracelet: "上等沉船手镯",
-  ExtravagantSalvagedEarring: "上等沉船耳饰",
-  ExtravagantSalvagedNecklace: "上等沉船项链",
-}
+// const goodsName = {
+//   SalvagedRing: "沉船戒指",
+//   SalvagedBracelet: "沉船手镯",
+//   SalvagedEarring: "沉船耳饰",
+//   SalvagedNecklace: "沉船项链",
+//   ExtravagantSalvagedRing: "上等沉船戒指",
+//   ExtravagantSalvagedBracelet: "上等沉船手镯",
+//   ExtravagantSalvagedEarring: "上等沉船耳饰",
+//   ExtravagantSalvagedNecklace: "上等沉船项链",
+// }
+
+// 物品名称
+const goodsNameMap = new Map([
+  ['亚拉戈银币', 100],
+  ['沉船戒指', 8000],
+  ['沉船手镯', 9000],
+  ['沉船耳饰', 10000],
+  ['沉船项链', 13000],
+  ['上等沉船戒指', 27000],
+  ['上等沉船戒指', 28500],
+  ['上等沉船耳饰', 30000],
+  ['上等沉船项链', 34500]
+]);
 
 // localStorage.clear();
 // 测试数据
@@ -360,7 +376,7 @@ async function showList(data) {
   if (data && data.length) {
     for (let item of data) {
       str += `<li class="list">
-        <p class="list_name">${goodsName[item.name]}</p>
+        <p class="list_name">${item.name}</p>
         <p class="list_number">x${item.number}</p>
         <p class="list_total">${item.number * goodsPrice[item.name]}</p>
       </li>`
@@ -408,67 +424,53 @@ $(".clear_log").click(function() {
 
 // 获取日志
 addOverlayListener('LogLine', e => {
-  $(".log").html(JSON.stringify(e))
-  // 循环日志
-  // for (let log of e.detail.logs) {
-  //   // void callOverlayHandler({
-  //   //   call: 'cactbotSay',
-  //   //   text: "11"
-  //   // });
-  //   // 正则处理
-  //   const r = /00:083E:.*获得了“.{1}(沉船戒指|沉船手镯|沉船耳饰|沉船项链|上等沉船戒指|上等沉船手镯|上等沉船耳饰|上等沉船项链)”×?(\d*)/.exec(log);
-  //   const name = r[1];
-  //   let number = r[2];
-  //   let formatName = ""
-  //   // 如果存在该物品
-  //   if (name) {
-  //     // 转换数量
-  //     if (number) {
-  //       number = Number(number);
-  //     } else {
-  //       number = 1;
-  //     }
-  //     // 格式化名称
-  //     for (let key in goodsName) {
-  //       // void callOverlayHandler({
-  //       //   call: 'cactbotSay',
-  //       //   text: key
-  //       // });
-  //       if (goodsName[key] === name) {
-  //         formatName = key
-  //       }
-  //     }
-  //     // 今日数据是否已有该物品
-  //     let hasThis = false;
-  //     if (todayData.length) {
-  //       for (let data of todayData) {
-  //         // 存在则增加数量
-  //         if (data.name === formatName) {
-  //           hasThis = true;
-  //           data.number += number;
-  //           break;
-  //         }
-  //       }
-  //     }
-  //     // 不存在则添加
-  //     if (!hasThis) {
-  //       todayData.push({
-  //         name: formatName,
-  //         number: number
-  //       })
-  //     }
-  //     // 存储数据
-  //     localStorage.setItem("today", JSON.stringify(todayData));
-  //     // 展示列表
-  //     showList(todayData);
-  //   }
-    
-    // if (name) {
-    //   void callOverlayHandler({
-    //     call: 'cactbotSay',
-    //     text: name + number + "个"
-    //   });
-    // }
+  // console.log(JSON.stringify(e))
+  const line = e.line;
+  console.log(line[0], line[2]);
+  if (line[0] == "00" && line[2] == "0038") {
+    // void callOverlayHandler({
+    //   call: 'cactbotSay',
+    //   text: "11"
+    // });
+    console.log(e.rawLine);
+    // 正则处理
+    const r = /(沉船戒指|沉船手镯|沉船耳饰|沉船项链|上等沉船戒指|上等沉船手镯|上等沉船耳饰|上等沉船项链)”×?(\d*)/.exec(e.rawLine);
+    const name = r[1];
+    let number = r[2];
+    // 如果存在该物品
+    if (name) {
+      // 转换数量
+      if (number) {
+        number = Number(number);
+      } else {
+        number = 1;
+      }
+      console.log(Object.prototype.toString.call(todayData));
+      // 今日数据是否已有该物品
+      let hasThis = false;
+      if (todayData.length) {
+        for (let data of todayData) {
+          // 存在则增加数量
+          if (data.name === name) {
+            hasThis = true;
+            data.number += number;
+            break;
+          }
+        }
+      }
+      // 不存在则添加
+      if (!hasThis) {
+        todayData.push({
+          name: name,
+          number: number
+        })
+      }
+      console.log(todayData);
+      // 存储数据
+      localStorage.setItem("today", JSON.stringify(todayData));
+      // 展示列表
+      showList(todayData);
+    }
   }
 });
 addOverlayListener('onUserFileChanged', e => {
