@@ -407,61 +407,61 @@ $(".clear_log").click(function() {
 })
 
 // 获取日志
-addOverlayListener('onLogEvent', e => {
-  // $(".log").html(JSON.stringify(e.detail.logs))
+addOverlayListener('LogLine', e => {
+  $(".log").html(JSON.stringify(e))
   // 循环日志
-  for (let log of e.detail.logs) {
-    // void callOverlayHandler({
-    //   call: 'cactbotSay',
-    //   text: "11"
-    // });
-    // 正则处理
-    const r = /00:083E:.*获得了“.{1}(沉船戒指|沉船手镯|沉船耳饰|沉船项链|上等沉船戒指|上等沉船手镯|上等沉船耳饰|上等沉船项链)”×?(\d*)/.exec(log);
-    const name = r[1];
-    let number = r[2];
-    let formatName = ""
-    // 如果存在该物品
-    if (name) {
-      // 转换数量
-      if (number) {
-        number = Number(number);
-      } else {
-        number = 1;
-      }
-      // 格式化名称
-      for (let key in goodsName) {
-        // void callOverlayHandler({
-        //   call: 'cactbotSay',
-        //   text: key
-        // });
-        if (goodsName[key] === name) {
-          formatName = key
-        }
-      }
-      // 今日数据是否已有该物品
-      let hasThis = false;
-      if (todayData.length) {
-        for (let data of todayData) {
-          // 存在则增加数量
-          if (data.name === formatName) {
-            hasThis = true;
-            data.number += number;
-            break;
-          }
-        }
-      }
-      // 不存在则添加
-      if (!hasThis) {
-        todayData.push({
-          name: formatName,
-          number: number
-        })
-      }
-      // 存储数据
-      localStorage.setItem("today", JSON.stringify(todayData));
-      // 展示列表
-      showList(todayData);
-    }
+  // for (let log of e.detail.logs) {
+  //   // void callOverlayHandler({
+  //   //   call: 'cactbotSay',
+  //   //   text: "11"
+  //   // });
+  //   // 正则处理
+  //   const r = /00:083E:.*获得了“.{1}(沉船戒指|沉船手镯|沉船耳饰|沉船项链|上等沉船戒指|上等沉船手镯|上等沉船耳饰|上等沉船项链)”×?(\d*)/.exec(log);
+  //   const name = r[1];
+  //   let number = r[2];
+  //   let formatName = ""
+  //   // 如果存在该物品
+  //   if (name) {
+  //     // 转换数量
+  //     if (number) {
+  //       number = Number(number);
+  //     } else {
+  //       number = 1;
+  //     }
+  //     // 格式化名称
+  //     for (let key in goodsName) {
+  //       // void callOverlayHandler({
+  //       //   call: 'cactbotSay',
+  //       //   text: key
+  //       // });
+  //       if (goodsName[key] === name) {
+  //         formatName = key
+  //       }
+  //     }
+  //     // 今日数据是否已有该物品
+  //     let hasThis = false;
+  //     if (todayData.length) {
+  //       for (let data of todayData) {
+  //         // 存在则增加数量
+  //         if (data.name === formatName) {
+  //           hasThis = true;
+  //           data.number += number;
+  //           break;
+  //         }
+  //       }
+  //     }
+  //     // 不存在则添加
+  //     if (!hasThis) {
+  //       todayData.push({
+  //         name: formatName,
+  //         number: number
+  //       })
+  //     }
+  //     // 存储数据
+  //     localStorage.setItem("today", JSON.stringify(todayData));
+  //     // 展示列表
+  //     showList(todayData);
+  //   }
     
     // if (name) {
     //   void callOverlayHandler({
