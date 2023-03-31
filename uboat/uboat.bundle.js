@@ -426,13 +426,13 @@ $(".clear_log").click(function() {
 addOverlayListener('LogLine', e => {
   // console.log(JSON.stringify(e))
   const line = e.line;
-  console.log(line[0], line[2]);
+  // console.log(line[0], line[2]);
   if (line[0] == "00" && line[2] == "083E") {
     // void callOverlayHandler({
     //   call: 'cactbotSay',
     //   text: "11"
     // });
-    console.log(e.rawLine);
+    // console.log(e.rawLine);
     // 正则处理
     const r = /(沉船戒指|沉船手镯|沉船耳饰|沉船项链|上等沉船戒指|上等沉船手镯|上等沉船耳饰|上等沉船项链)”×?(\d*)/.exec(e.rawLine);
     const name = r[1];
@@ -445,7 +445,6 @@ addOverlayListener('LogLine', e => {
       } else {
         number = 1;
       }
-      console.log(Object.prototype.toString.call(todayData));
       // 今日数据是否已有该物品
       let hasThis = false;
       if (todayData.length) {
@@ -465,7 +464,7 @@ addOverlayListener('LogLine', e => {
           number: number
         })
       }
-      console.log(todayData);
+      // console.log(todayData);
       // 存储数据
       localStorage.setItem("today", JSON.stringify(todayData));
       // 展示列表
