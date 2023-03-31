@@ -427,7 +427,7 @@ addOverlayListener('LogLine', e => {
   // console.log(JSON.stringify(e))
   const line = e.line;
   console.log(line[0], line[2]);
-  if (line[0] == "00" && line[2] == "0038") {
+  if (line[0] == "00" && line[2] == "083E") {
     // void callOverlayHandler({
     //   call: 'cactbotSay',
     //   text: "11"
