@@ -224,90 +224,8 @@ const goodsPrice = {
   "火之水晶": 25,
   "萨维奈彩椒": 300,
 }
-// 物品名称
-// const goodsName = {
-//   SalvagedRing: "沉船戒指",
-//   SalvagedBracelet: "沉船手镯",
-//   SalvagedEarring: "沉船耳饰",
-//   SalvagedNecklace: "沉船项链",
-//   ExtravagantSalvagedRing: "上等沉船戒指",
-//   ExtravagantSalvagedBracelet: "上等沉船手镯",
-//   ExtravagantSalvagedEarring: "上等沉船耳饰",
-//   ExtravagantSalvagedNecklace: "上等沉船项链",
-// }
 
-// 物品名称
-const goodsNameMap = new Map([
-  ['亚拉戈银币', 100],
-  ['沉船戒指', 8000],
-  ['沉船手镯', 9000],
-  ['沉船耳饰', 10000],
-  ['沉船项链', 13000],
-  ['上等沉船戒指', 27000],
-  ['上等沉船戒指', 28500],
-  ['上等沉船耳饰', 30000],
-  ['上等沉船项链', 34500]
-]);
-
-// localStorage.clear();
-// 测试数据
-const testData = {
-  "2023-03-14": [
-    {
-      name: "SalvagedRing",
-      number: 2,
-    },
-    {
-      name: "SalvagedBracelet",
-      number: 2,
-    },
-    {
-      name: "ExtravagantSalvagedBracelet",
-      number: 2,
-    },
-    {
-      name: "ExtravagantSalvagedNecklace",
-      number: 2,
-    },
-  ],
-  "2023-03-12": [
-    {
-      name: "SalvagedRing",
-      number: 4,
-    },
-    {
-      name: "SalvagedBracelet",
-      number: 4,
-    },
-    {
-      name: "ExtravagantSalvagedBracelet",
-      number: 4,
-    },
-    {
-      name: "ExtravagantSalvagedNecklace",
-      number: 4,
-    },
-  ],
-  "2023-03-18": [
-    {
-      name: "SalvagedRing",
-      number: 6,
-    },
-    {
-      name: "SalvagedBracelet",
-      number: 2,
-    },
-    {
-      name: "ExtravagantSalvagedBracelet",
-      number: 4,
-    },
-    {
-      name: "ExtravagantSalvagedNecklace",
-      number: 6,
-    },
-  ]
-}
-// localStorage.setItem("history", JSON.stringify(testData));
+// localStorage.setItem("time", "2023-04-01");
 
 // 记录数据日期
 let historyTime = localStorage.getItem("time");
@@ -319,6 +237,9 @@ let historyData = localStorage.getItem("history");
 const todayTime = dayjs().format("YYYY-MM-DD");
 
 // $(".log").html(historyTime + "/" + JSON.stringify(todayData))
+
+
+// console.log(historyTime);
 
 // 数据不存在则存储当前日期
 if (!historyTime) {
@@ -335,8 +256,10 @@ if (!historyData) {
 } else {
   historyData = JSON.parse(historyData);
 }
+
+
 // 如果记录日期为之前的，则存储到历史数据
-if (dayjs(historyTime, "YYYY-MM-DD").isBefore(dayjs(todayTime, "YYYY-MM-DD"), 'day')) {
+if (dayjs(historyTime, "YYYY-MM-DD").isBefore(dayjs(), 'day')) {
   // 存储数据
   if (todayData.length) {
     historyData[historyTime] = todayData;
@@ -352,22 +275,6 @@ if (dayjs(historyTime, "YYYY-MM-DD").isBefore(dayjs(todayTime, "YYYY-MM-DD"), 'd
 // 显示当前日期
 $(".date_select_word").html(historyTime);
 
-// todayData = [{
-//   name: "SalvagedRing",
-//   number: 5,
-// },
-// {
-//   name: "SalvagedBracelet",
-//   number: 5,
-// },
-// {
-//   name: "ExtravagantSalvagedBracelet",
-//   number: 5,
-// },
-// {
-//   name: "ExtravagantSalvagedNecklace",
-//   number: 5,
-// }]
 
 // 显示列表
 async function showList(data) {
@@ -416,9 +323,10 @@ $(".date_select_right").click(function() {
 })
 // 清空记录
 $(".clear_log").click(function() {
-  localStorage.removeItem("history");
+  localStorage.clear();
   historyData = [];
   $(".date_select_word").html(historyTime);
+  alert("记录已清空");
   showList(null);
 })
 
@@ -466,6 +374,7 @@ addOverlayListener('LogLine', e => {
       }
       // console.log(todayData);
       // 存储数据
+      localStorage.setItem("time", historyTime);
       localStorage.setItem("today", JSON.stringify(todayData));
       // 展示列表
       showList(todayData);
