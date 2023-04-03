@@ -324,7 +324,8 @@ $(".date_select_right").click(function() {
 // 清空记录
 $(".clear_log").click(function() {
   localStorage.clear();
-  historyData = [];
+  historyData = null;
+  todayData = []
   $(".date_select_word").html(historyTime);
   alert("记录已清空");
   showList(null);
